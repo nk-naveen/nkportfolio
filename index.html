@@ -591,6 +591,7 @@
             display: flex; align-items: center; justify-content: center;
             font-size: 1.25rem;
         }
+        .cert-ico svg { width: 32px; height: 32px; display: block; }
         .cert-name { font-size: 0.83rem; font-weight: 600; color: var(--txt); margin-bottom: 0.15rem; }
         .cert-issuer { font-family: var(--mono); font-size: 0.7rem; color: var(--txt3); }
         .cert-badge {
@@ -609,7 +610,7 @@
         #contact { background: linear-gradient(180deg,transparent,rgba(0,229,255,0.015),transparent); }
         .contact-grid {
             display: grid;
-            grid-template-columns: 1fr 1.5fr;
+            grid-template-columns: 1fr;
             gap: 4rem;
         }
         .contact-left h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.9rem; }
@@ -749,7 +750,7 @@
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#experience">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
+        <li><a href="#projects">Work</a></li>
         <li><a href="#certifications">Certs</a></li>
         <li><a href="#contact">Contact</a></li>
     </ul>
@@ -769,12 +770,13 @@
             <span id="typer" class="cursor"></span>
         </div>
         <p class="hero-sub">
-            Building resilient infrastructure at scale — automating pipelines, orchestrating containers,
-            and turning infrastructure into repeatable, version-controlled code.
+            I build secure AWS platforms and delivery pipelines. At DataGrokr Analytics, I automated account onboarding
+            across 10+ enterprise services, cutting provisioning from 2–3 days to under 2 hours.
         </p>
         <div class="hero-btns">
             <a href="#projects" class="btn btn-outline">VIEW MY WORK</a>
             <a href="#contact" class="btn btn-fill">GET IN TOUCH</a>
+            <a href="Naveen_Kumar_DevOps_Engineer_Resume.pdf" class="btn btn-outline" download>DOWNLOAD_RESUME</a>
         </div>
     </div>
     <div class="hero-scroll">
@@ -795,7 +797,7 @@
             <div class="img-frame">
                 <div class="img-placeholder">
                     <div class="avatar-ring">👨‍💻</div>
-                    <span>[ ADD YOUR PHOTO ]</span>
+                    <span>AWS PLATFORM<br>ENGINEERING</span>
                 </div>
                 <div class="corner c-tl"></div>
                 <div class="corner c-tr"></div>
@@ -804,16 +806,14 @@
             </div>
         </div>
         <div class="about-text reveal">
-            <h3>DevOps Engineer & <span>Cloud Architect</span></h3>
-            <div class="edit-hint">// Update this section with your personal story</div>
+            <h3>DevOps Engineer & <span>Platform Builder</span></h3>
             <p>
-                Passionate DevOps Engineer focused on building resilient, scalable infrastructure and
-                automating everything that can be automated. I bridge the gap between development and
-                operations — enabling teams to ship with speed and confidence.
+                At DataGrokr Analytics, I built AWS account lifecycle automation covering account creation, security
+                baselines, Okta federation, service registration, decommissioning, and automated validation.
             </p>
             <p>
-                From designing CI/CD pipelines to managing Kubernetes clusters at scale, I apply
-                SRE principles to keep systems reliable, observable, and always improving.
+                I also build EKS delivery pipelines and observability, and develop AWS Config controls and
+                Lambda-based monitoring to improve security, reliability, and operational visibility.
             </p>
             <div class="stats-row">
                 <div class="stat-box">
@@ -822,7 +822,7 @@
                 </div>
                 <div class="stat-box">
                     <div class="stat-num" id="stat-proj">—</div>
-                    <div class="stat-lbl">PROJECTS</div>
+                    <div class="stat-lbl">FEATURED WORK</div>
                 </div>
                 <div class="stat-box">
                     <div class="stat-num" id="stat-cert">—</div>
@@ -856,8 +856,8 @@
 <!-- ============ PROJECTS ============ -->
 <div class="section-wrap" id="projects">
     <div class="sec-head reveal">
-        <p class="sec-label">// ls -la ./projects</p>
-        <h2 class="sec-title">Featured <span>Projects</span></h2>
+        <p class="sec-label">// ls -la ./work</p>
+        <h2 class="sec-title">Selected <span>Work</span></h2>
         <div class="sec-line"></div>
     </div>
     <div class="projects-grid" id="projectsGrid"></div>
@@ -883,37 +883,16 @@
     <div class="contact-grid">
         <div class="contact-left reveal">
             <h3>Let's Build Something</h3>
-            <p>
-                Whether it's discussing cloud architecture, automation strategies,
-                or exploring new opportunities — I'm always open to connecting.
-            </p>
+            <p>For DevOps, cloud platform, and infrastructure automation opportunities, reach me here or download my resume.</p>
             <div class="contact-links" id="contactLinks"></div>
-        </div>
-        <div class="contact-form reveal">
-            <div class="f-group">
-                <label class="f-label">// YOUR NAME</label>
-                <input class="f-input" type="text" placeholder="John Doe">
-            </div>
-            <div class="f-group">
-                <label class="f-label">// YOUR EMAIL</label>
-                <input class="f-input" type="email" placeholder="john@example.com">
-            </div>
-            <div class="f-group">
-                <label class="f-label">// SUBJECT</label>
-                <input class="f-input" type="text" placeholder="Let's connect...">
-            </div>
-            <div class="f-group">
-                <label class="f-label">// MESSAGE</label>
-                <textarea class="f-area" placeholder="Your message here..."></textarea>
-            </div>
-            <button class="f-btn">SEND_MESSAGE.sh ↗</button>
+            <a href="Naveen_Kumar_DevOps_Engineer_Resume.pdf" class="btn btn-fill" download>DOWNLOAD_RESUME</a>
         </div>
     </div>
 </div>
 
 <!-- ============ FOOTER ============ -->
 <footer>
-    <p>Designed &amp; Built by <span>Naveen Kumar</span> &nbsp;·&nbsp; DevOps Engineer &nbsp;·&nbsp; <span>2024</span></p>
+    <p>Designed &amp; Built by <span>Naveen Kumar</span> &nbsp;·&nbsp; DevOps Engineer &nbsp;·&nbsp; <span>2026</span></p>
     <p style="margin-top:0.5rem;font-size:0.68rem;opacity:0.4;">// rm -rf impostor_syndrome &amp;&amp; ./deploy_confidence.sh</p>
 </footer>
 
@@ -924,106 +903,39 @@
    Every section pulls its data from here.
    ========================================================== */
 const CONFIG = {
-
-    /* ---- Personal ---- */
-    name:     "Naveen Kumar",
-    title:    "DevOps Engineer",
-    titles:   [                           // Typewriter cycles through these
-        "DevOps Engineer",
-        "Site Reliability Engineer",
-        "Platform Engineer",
-        "Cloud Architect",
-        "Infrastructure Automator"
-    ],
-
-    /* ---- Stats (update numbers when you have them) ---- */
-    stats: {
-        experience:    null,              // e.g. 5  → shows "5+"
-        projects:      null,              // e.g. 20 → shows "20+"
-        certifications: null              // e.g. 4  → shows "4"
-    },
-
-    /* ---- Contact ---- */
-    contact: {
-        email:    "naveen@example.com",           // ← your email
-        linkedin: "https://linkedin.com/in/naveenkumar", // ← your LinkedIn URL
-        github:   "https://github.com/naveenkumar",      // ← your GitHub URL
-        location: "Your City, Country"            // ← your location
-    },
-
-    /* ---- Skills ---- */
+    name: "Naveen Kumar",
+    title: "DevOps Engineer",
+    titles: ["DevOps Engineer", "AWS Platform Engineer", "CI/CD & Observability Engineer"],
+    stats: { experience: 4, projects: 4, certifications: 2 },
+    contact: { email: "nnkumar2468@gmail.com", linkedin: "https://www.linkedin.com/in/naveen-kumar-07b1071bb", github: "", location: "Bengaluru, India" },
     skills: [
-        { name: "Cloud Platforms",           icon: "☁️",  tags: ["AWS", "Azure", "GCP", "Oracle Cloud"] },
-        { name: "Containers & Orchestration", icon: "🐳", tags: ["Docker", "Kubernetes", "Helm", "OpenShift", "ECS", "EKS", "AKS"] },
-        { name: "Infrastructure as Code",    icon: "🏗️",  tags: ["Terraform", "Ansible", "Pulumi", "CloudFormation", "CDK"] },
-        { name: "CI/CD Pipelines",           icon: "🔄",  tags: ["GitHub Actions", "GitLab CI", "Jenkins", "ArgoCD", "CircleCI", "Tekton"] },
-        { name: "Monitoring & Observability", icon: "📊", tags: ["Prometheus", "Grafana", "ELK Stack", "Datadog", "New Relic", "PagerDuty", "Jaeger"] },
-        { name: "Scripting & Languages",     icon: "💻",  tags: ["Python", "Bash", "PowerShell", "Go", "YAML", "HCL"] },
-        { name: "Security & Compliance",     icon: "🔐",  tags: ["HashiCorp Vault", "Trivy", "SonarQube", "IAM", "RBAC", "OPA", "Falco"] },
-        { name: "Networking & Load Balancing", icon: "🌐", tags: ["VPC", "Load Balancers", "Nginx", "CDN", "DNS", "Istio", "Service Mesh"] },
-        { name: "Databases & Storage",       icon: "🗄️",  tags: ["PostgreSQL", "MySQL", "Redis", "MongoDB", "S3", "DynamoDB", "RDS"] },
-        { name: "Version Control & Collab",  icon: "🔀",  tags: ["Git", "GitHub", "GitLab", "Bitbucket", "Jira", "Confluence"] },
-        { name: "Service Mesh & API",        icon: "🕸️",  tags: ["Istio", "Consul", "Kong", "API Gateway", "gRPC", "REST"] },
-        { name: "OS & Systems",              icon: "🐧",  tags: ["Linux", "Ubuntu", "CentOS", "RHEL", "Debian", "Alpine Linux"] }
+        { name: "AWS Platform", icon: "☁️", tags: ["AWS Organizations", "IAM", "AWS Config", "Lambda", "CloudWatch", "Terraform", "CloudFormation", "EKS", "ECS Fargate", "S3", "DynamoDB", "SQS", "SES", "Step Functions"] },
+        { name: "CI/CD & Containers", icon: "🔄", tags: ["Jenkins", "Groovy", "Docker", "Amazon ECR", "Kubernetes", "Helm", "Trivy", "SonarQube", "GitHub Actions"] },
+        { name: "Automation & Scripting", icon: "💻", tags: ["Python", "Boto3", "Bash", "PowerShell", "YAML", "JSON"] },
+        { name: "Identity & Governance", icon: "🔐", tags: ["Okta", "SAML", "SCIM", "STS AssumeRole", "AWS Config Rules", "IAM Permissions Boundaries", "ServiceNow"] },
+        { name: "Monitoring & Observability", icon: "📊", tags: ["Prometheus", "Grafana", "CloudWatch Logs", "EventBridge", "SNS", "Alerting", "HTML/JSON Reporting"] },
+        { name: "Enterprise Integrations", icon: "🔗", tags: ["CrowdStrike CSPM", "ServiceNow CMDB", "Exchange Online", "Kubex/Densify", "Proofpoint", "Splunk"] }
     ],
-
-    /* ---- Experience (add/remove entries) ---- */
     experience: [
         {
-            date:        "Month Year – Present",          // ← e.g. "Jan 2022 – Present"
-            role:        "DevOps Engineer",               // ← your job title
-            company:     "Company Name",                  // ← company name
-            description: "Describe your key responsibilities and achievements here. What did you build? What did you automate? What impact did you have on reliability, speed, or cost?",
-            tags:        ["AWS", "Kubernetes", "Terraform", "CI/CD"]
-        },
-        {
-            date:        "Month Year – Month Year",
-            role:        "Previous Role",
-            company:     "Previous Company",
-            description: "Describe your previous role here. Add quantifiable achievements where possible (e.g. reduced deployment time by X%, improved uptime to Y%).",
-            tags:        ["Docker", "Linux", "Python", "Jenkins"]
+            date: "Jan 2023 – Present",
+            role: "DevOps Engineer",
+            company: "DataGrokr Analytics",
+            description: "Build AWS multi-account onboarding and lifecycle automation, scalable Jenkins CI/CD on ECS Fargate, EKS delivery pipelines, Terraform and CloudFormation infrastructure, 25+ AWS Config rules, and Python Lambda monitoring. Account onboarding reduced manual effort by 80%; Jenkins infrastructure cost fell by 35% and deployment time by 45%.",
+            tags: ["AWS", "Jenkins", "Python", "Okta", "ServiceNow", "AWS Config", "Boto3"]
         }
     ],
-
-    /* ---- Projects (add/remove entries) ---- */
     projects: [
-        {
-            num:         "01",
-            title:       "Project Title",                 // ← e.g. "Multi-Cloud K8s Platform"
-            description: "Describe the project here — the problem it solved, the architecture decisions, technologies used, and the measurable impact. Add this when you have a project to showcase.",
-            tags:        ["Kubernetes", "Terraform", "AWS", "Helm"],
-            github:      "#",                             // ← GitHub repo URL
-            demo:        null                             // ← Demo URL or null
-        },
-        {
-            num:         "02",
-            title:       "Project Title",
-            description: "Another project — could be a CI/CD pipeline, an internal tool, an infrastructure automation framework, or a monitoring setup you built from scratch.",
-            tags:        ["Python", "GitHub Actions", "Docker", "Prometheus"],
-            github:      "#",
-            demo:        null
-        },
-        {
-            num:         "03",
-            title:       "Project Title",
-            description: "Infrastructure project, security automation, or any technical work you're proud of. Describe the challenge, your approach, and the outcome.",
-            tags:        ["Ansible", "Grafana", "Redis", "Nginx"],
-            github:      "#",
-            demo:        null
-        }
+        { num: "01", title: "AWS Account Lifecycle Platform", description: "Automated AWS account onboarding and offboarding through Jenkins, coordinating Organizations, baseline CloudFormation, and 10+ enterprise services. Added Okta SAML federation with BU-aware role mappings and tag-gated decommissioning. Reduced provisioning from 2–3 days to under 2 hours.", tags: ["AWS Organizations", "Jenkins", "Python", "Boto3", "Okta", "ServiceNow", "CrowdStrike"], github: null, demo: null },
+        { num: "02", title: "AWS Governance & Error Monitoring", description: "Created 25 AWS Config rules covering IAM, EC2, S3, RDS, VPC/networking, and other services, plus centralized Lambda error monitoring with deduplication, severity escalation, threshold alerts, and daily digests. Automated log-group enrollment and multi-region compliance notifications.", tags: ["AWS Config", "Lambda", "CloudWatch", "SQS", "DynamoDB", "EventBridge", "SES"], github: null, demo: null },
+        { num: "03", title: "EKS Delivery & Production Observability", description: "Built an EKS CI/CD workflow with quality and security checks, ECR image publishing, Helm release gates, smoke tests, and automatic rollback. Deployments fell from 1–2 hours to 12–15 minutes with zero downtime. Prometheus and Grafana helped catch about 40% of incidents before customer reports and cut diagnosis time to under 10 minutes.", tags: ["EKS", "Jenkins", "Docker", "ECR", "Helm", "Trivy", "Prometheus", "Grafana"], github: null, demo: null },
+        { num: "04", title: "Scalable Jenkins on ECS Fargate", description: "Designed Jenkins on ECS Fargate with ephemeral build agents and persistent EFS storage. Documented outcomes include 35% lower infrastructure cost, removal of the fixed build concurrency cap, and 45% faster average deployments.", tags: ["AWS ECS Fargate", "Jenkins", "EFS", "Docker", "JCasC", "Amazon ECR"], github: null, demo: null }
     ],
-
-    /* ---- Certifications ---- */
     certifications: [
-        { icon: "☁️",  name: "AWS Solutions Architect Associate",   issuer: "Amazon Web Services",  status: "Add date" },
-        { icon: "⎈",   name: "Certified Kubernetes Administrator",  issuer: "CNCF",                 status: "Add date" },
-        { icon: "🔷",  name: "Azure DevOps Engineer Expert",        issuer: "Microsoft",             status: "Add date" },
-        { icon: "☁️",  name: "AWS DevOps Engineer Professional",    issuer: "Amazon Web Services",  status: "Add date" },
-        { icon: "🌍",  name: "Google Cloud Pro DevOps Engineer",    issuer: "Google Cloud",          status: "Add date" },
-        { icon: "🔐",  name: "HashiCorp Terraform Associate",       issuer: "HashiCorp",             status: "Add date" }
+        { icon: '<svg viewBox="0 0 96 64" role="img" aria-label="AWS logo"><text x="5" y="39" fill="currentColor" font-family="Arial,sans-serif" font-size="32" font-weight="700">aws</text><path d="M10 49c22 10 48 10 70-1M70 43l10 5-7 7" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>', name: "AWS Certified Solutions Architect – Associate", issuer: "Amazon Web Services", status: "CERTIFIED" },
+        { icon: '<svg viewBox="0 0 64 64" role="img" aria-label="HashiCorp logo"><path d="M18 5h28l13 13v28L46 59H18L5 46V18z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/><path d="M21 20v24M43 20v24M21 32h22" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="square"/></svg>', name: "HashiCorp Certified: Terraform Associate (003)", issuer: "HashiCorp", status: "CERTIFIED" }
     ]
 };
-
 /* ==========================================================
    RENDER FUNCTIONS
    ========================================================== */
@@ -1054,7 +966,6 @@ function renderExperience() {
         el.innerHTML = `
             <div class="t-dot"></div>
             <div class="t-card">
-                <div class="update-hint">✏ Update with your real experience</div>
                 <div class="t-date">${exp.date}</div>
                 <div class="t-role">${exp.role}</div>
                 <div class="t-company">@ ${exp.company}</div>
@@ -1078,7 +989,7 @@ function renderProjects() {
             <div class="p-desc">${p.description}</div>
             <div class="p-tags">${p.tags.map(t => `<span class="p-tag">${t}</span>`).join('')}</div>
             <div class="p-links">
-                <a href="${p.github}" class="p-link" target="_blank">⌥ GitHub</a>
+                ${p.github ? `<a href="${p.github}" class="p-link" target="_blank" rel="noopener">⌥ GitHub</a>` : ''}
                 ${p.demo ? `<a href="${p.demo}" class="p-link" target="_blank">↗ Live Demo</a>` : ''}
             </div>
         `;
@@ -1088,6 +999,11 @@ function renderProjects() {
 
 function renderCerts() {
     const grid = document.getElementById('certsGrid');
+    if (!CONFIG.certifications.length) {
+        document.getElementById('certifications').hidden = true;
+        document.querySelector('.nav-links a[href="#certifications"]')?.closest('li')?.remove();
+        return;
+    }
     CONFIG.certifications.forEach((c, i) => {
         const el = document.createElement('div');
         el.className = 'cert reveal';
@@ -1106,17 +1022,19 @@ function renderCerts() {
 
 function renderContact() {
     const wrap = document.getElementById('contactLinks');
+    if (!wrap) return;
     const items = [
-        { ico: '✉️', lbl: 'EMAIL',    val: CONFIG.contact.email,    href: `mailto:${CONFIG.contact.email}` },
-        { ico: '🔗', lbl: 'LINKEDIN', val: 'linkedin.com/in/naveenkumar', href: CONFIG.contact.linkedin },
-        { ico: '⌥',  lbl: 'GITHUB',   val: 'github.com/naveenkumar', href: CONFIG.contact.github },
-        { ico: '📍', lbl: 'LOCATION', val: CONFIG.contact.location,  href: '#' }
+        { ico: '✉️', lbl: 'EMAIL',    val: CONFIG.contact.email,    href: CONFIG.contact.email ? `mailto:${CONFIG.contact.email}` : '' },
+        { ico: '🔗', lbl: 'LINKEDIN', val: CONFIG.contact.linkedin.replace(/^https?:\/\//, ''), href: CONFIG.contact.linkedin },
+        { ico: '⌥',  lbl: 'GITHUB',   val: CONFIG.contact.github.replace(/^https?:\/\//, ''), href: CONFIG.contact.github },
+        { ico: '📍', lbl: 'LOCATION', val: CONFIG.contact.location,  href: '' }
     ];
-    items.forEach(item => {
+    items.filter(item => item.val).forEach(item => {
         const a = document.createElement('a');
         a.className = 'c-link';
         a.href = item.href;
-        if (item.href.startsWith('http') || item.href.startsWith('mailto')) a.target = '_blank';
+        if (!item.href) a.removeAttribute('href');
+        if (item.href.startsWith('http')) { a.target = '_blank'; a.rel = 'noopener'; }
         a.innerHTML = `
             <div class="c-ico">${item.ico}</div>
             <div>
@@ -1130,9 +1048,15 @@ function renderContact() {
 
 function renderStats() {
     const s = CONFIG.stats;
-    document.getElementById('stat-exp').textContent   = s.experience    ? s.experience + '+'    : '—';
-    document.getElementById('stat-proj').textContent  = s.projects      ? s.projects + '+'      : '—';
-    document.getElementById('stat-cert').textContent  = s.certifications ? s.certifications + '' : '—';
+    const experienceBox = document.getElementById('stat-exp').closest('.stat-box');
+    const workBox = document.getElementById('stat-proj').closest('.stat-box');
+    const certBox = document.getElementById('stat-cert').closest('.stat-box');
+    experienceBox.hidden = !s.experience;
+    workBox.hidden = !s.projects;
+    certBox.hidden = !s.certifications;
+    document.getElementById('stat-exp').textContent = s.experience || '';
+    document.getElementById('stat-proj').textContent = s.projects || '';
+    document.getElementById('stat-cert').textContent = s.certifications || '';
 }
 
 /* ==========================================================
