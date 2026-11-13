@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naveen Kumar :: Bento</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+        :root {
+            --bg:    #0a0a0a;
+            --bg2:   #111111;
+            --card:  #141414;
+            --card2: #1a1a1a;
+            --b:     #222222;
+            --o:     #ff6500;
+            --o2:    #ff8c00;
+            --ob:    rgba(255,101,0,0.12);
+            --ob2:   rgba(255,101,0,0.06);
+            --txt:   #f5f5f5;
+            --txt2:  #888888;
+            --txt3:  #444444;
+            --mono:  'JetBrains Mono', monospace;
+            --sans:  'Inter', sans-serif;
+            --rad:   16px;
+            --rad-s: 10px;
+            --glow:  0 0 15px rgba(255,101,0,0.3);
+            --glow2: 0 0 30px rgba(255,101,0,0.2), 0 0 60px rgba(255,101,0,0.08);
+            --ease:  all 0.3s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        html { scroll-behavior: smooth; }
+        body { font-family:var(--sans); background:var(--bg); color:var(--txt); overflow-x:hidden; line-height:1.6; }
+
+        /* Noise grain texture */
+        body::after {
+            content:'';
+            position:fixed; inset:0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events:none; z-index:9998; opacity:0.6;
+        }
+
+        ::-webkit-scrollbar { width:4px; }
+        ::-webkit-scrollbar-track { background:var(--bg); }
+        ::-webkit-scrollbar-thumb { background:#333; border-radius:2px; }
+        ::-webkit-scrollbar-thumb:hover { background:var(--o); }
+
+        /* ---- NAV ---- */
+        nav {
+            position:fixed; top:0; left:0; right:0; z-index:1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--ease);
+        }
+        nav.scrolled {
+            background: rgba(10,10,10,0.94);
+            backdrop-filter: blur(28px);
+            border-bottom: 1px solid var(--b);
+        }
+        .logo {
+            font-weight: 900;
+            font-size: 1.3rem;
+            letter-spacing: -1px;
+            text-decoration: none;
+            color: var(--txt);
+        }
+        .logo span { color: var(--o); }
+        .nav-links { display:flex; list-style:none; gap:0.3rem; }
+        .nav-links a {
+            font-size: 0.82rem;
+            color: var(--txt2);
+            text-decoration: none;
+            padding: 0.4rem 0.9rem;
+            border-radius: 999px;
+            transition: var(--ease);
+            font-weight: 500;
+        }
+        .nav-links a:hover { color:var(--txt); background:var(--card2); }
+        .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; }
+        .hamburger span { width:22px; height:2px; background:var(--txt); border-radius:2px; }
+
+        /* ---- HERO BENTO ---- */
+        #home {
+            position: relative;
+            min-height: 100vh;
+            padding: 6rem 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+        }
+        .bento-hero {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: minmax(70px, auto);
+            gap: 1rem;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Bento card base */
+        .bc {
+            background: var(--card);
+            border: 1px solid var(--b);
+            border-radius: var(--rad);
+            padding: 1.5rem;
+            overflow: hidden;
+            transition: var(--ease);
+        }
+        .bc:hover { border-color: #333; transform: translateY(-2px); }
+
+        /* Layout: main name card */
+        .b-main {
+            grid-column: 1 / 8;
+            grid-row: 1 / 3;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, var(--card) 0%, #1c0d00 100%);
+            border-color: rgba(255,101,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        .b-main::before {
+            content: '';
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 240px; height: 240px;
+            background: radial-gradient(circle, rgba(255,101,0,0.12), transparent 70%);
+            border-radius: 50%;
+        }
+        .b-name-label { font-family:var(--mono); font-size:0.75rem; color:var(--o); letter-spacing:3px; text-transform:uppercase; margin-bottom:1rem; }
+        .b-name {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1.0;
+            color: var(--txt);
+        }
+        .b-name em { color:var(--o); font-style:normal; }
+        .b-title-wrap { margin-top:1rem; }
+        .b-title { font-family:var(--mono); font-size:0.9rem; color:var(--txt2); min-height:1.5rem; }
+        .b-cursor { border-right:2px solid var(--o); animation:blink 0.7s step-end infinite; }
+        .b-btns { display:flex; gap:0.75rem; flex-wrap:wrap; margin-top:1.5rem; }
+        .btn {
+            font-size:0.8rem;
+            padding:0.65rem 1.5rem;
+            border-radius:999px;
+            font-weight:600;
+            text-decoration:none;
+            cursor:pointer;
+            border:none;
+            transition:var(--ease);
+            font-family:var(--sans);
+        }
+        .btn-o { background:var(--o); color:#000; }
+        .btn-o:hover { background:var(--o2); box-shadow:var(--glow2); transform:translateY(-1px); }
+        .btn-ghost { background:transparent; border:1px solid var(--b); color:var(--txt2); }
+        .btn-ghost:hover { border-color:var(--o); color:var(--o); }
+
+        /* Photo card */
+        .b-photo {
+            grid-column: 8 / 13;
+            grid-row: 1 / 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            background: var(--card);
+            border-radius: var(--rad);
+            border: 1px solid var(--b);
+            min-height: 220px;
+            color: var(--txt3);
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: var(--ease);
+        }
+        .b-photo:hover { border-color: var(--o); background: #160a00; }
+        .photo-icon { font-size: 3.5rem; }
+        .photo-hint { font-size: 0.72rem; color: var(--txt3); }
+
+        /* Stat cards */
+        .b-stat {
+            grid-column: span 3;
+            grid-row: 3;
+            text-align: center;
+            padding: 1.25rem;
+        }
+        .b-stat:hover { border-color:var(--o); background:var(--card2); }
+        .stat-big { font-size:2.2rem; font-weight:900; color:var(--o); letter-spacing:-1px; line-height:1; }
+        .stat-sub { font-size:0.72rem; color:var(--txt3); letter-spacing:1px; text-transform:uppercase; margin-top:0.4rem; font-family:var(--mono); }
+
+        /* Social card */
+        .b-social {
+            grid-column: 10 / 13;
+            grid-row: 3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+        .soc-btn {
+            width: 42px; height: 42px;
+            background: var(--card2);
+            border: 1px solid var(--b);
+            border-radius: var(--rad-s);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: var(--ease);
+            cursor: pointer;
+        }
+        .soc-btn:hover { background:var(--ob); border-color:var(--o); }
+
+        /* Skills ticker card — full width */
+        .b-ticker {
+            grid-column: 1 / 13;
+            grid-row: 4;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+        .ticker-inner { padding: 1rem 0; }
+        .ticker-label { font-family:var(--mono); font-size:0.7rem; color:var(--o); letter-spacing:2px; padding:0 1.5rem; white-space:nowrap; }
+
+        /* ---- SHARED ---- */
+        .sw { padding:5rem 2rem; max-width:1200px; margin:0 auto; }
+        .sec-head { margin-bottom:3.5rem; display:flex; align-items:flex-end; justify-content:space-between; gap:2rem; }
+        .sec-head-left {}
+        .sec-label { font-family:var(--mono); font-size:0.72rem; color:var(--o); letter-spacing:3px; text-transform:uppercase; margin-bottom:0.5rem; }
+        .sec-title { font-size:clamp(2rem,4vw,3rem); font-weight:900; letter-spacing:-1.5px; color:var(--txt); }
+        .sec-title span { color:var(--o); }
+
+        /* reveal */
+        .reveal { opacity:0; transform:translateY(22px); transition:opacity 0.65s ease, transform 0.65s ease; }
+        .reveal.show { opacity:1; transform:translateY(0); }
+
+        /* ---- SKILLS TICKER ---- */
+        #skills { padding-top:3rem; border-top:1px solid var(--b); }
+        .ticker-row { overflow:hidden; padding:0.5rem 0; }
+        .ticker-row + .ticker-row { margin-top:0.5rem; }
+        .ticker-track {
+            display:flex; gap:0.75rem;
+            animation: ticker 28s linear infinite;
+            width:max-content;
+        }
+        .ticker-track.rev { animation-direction:reverse; animation-duration:34s; }
+        .ticker-tag {
+            font-family:var(--mono);
+            font-size:0.8rem;
+            padding:0.4rem 1.1rem;
+            background:var(--card);
+            border:1px solid var(--b);
+            border-radius:999px;
+            color:var(--txt2);
+            white-space:nowrap;
+            transition:var(--ease);
+            cursor:default;
+        }
+        .ticker-tag:hover { border-color:var(--o); color:var(--o); background:var(--ob2); }
+        .ticker-tag.hl { border-color:rgba(255,101,0,0.25); color:var(--txt); }
+        @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+        /* ---- EXPERIENCE (feature cards not timeline) ---- */
+        .exp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.2rem;
+        }
+        .exp-card {
+            background:var(--card);
+            border:1px solid var(--b);
+            border-radius:var(--rad);
+            overflow:hidden;
+            transition:var(--ease);
+        }
+        .exp-card:hover { border-color:var(--o); transform:translateY(-3px); box-shadow:0 8px 40px rgba(0,0,0,0.4); }
+        .exp-top {
+            padding:1.75rem;
+            border-bottom:1px solid var(--b);
+            position:relative;
+            overflow:hidden;
+        }
+        .exp-top::after {
+            content:'';
+            position:absolute;
+            right:-20px; top:-20px;
+            width:100px; height:100px;
+            background:radial-gradient(circle,var(--ob),transparent);
+            border-radius:50%;
+        }
+        .exp-date { font-family:var(--mono); font-size:0.72rem; color:var(--o); letter-spacing:1px; margin-bottom:0.5rem; }
+        .exp-role { font-size:1.15rem; font-weight:700; color:var(--txt); margin-bottom:0.3rem; }
+        .exp-company { font-family:var(--mono); font-size:0.82rem; color:var(--txt2); }
+        .exp-bottom { padding:1.5rem; }
+        .update-hint { font-family:var(--mono); font-size:0.68rem; color:var(--txt3); border:1px dashed #2a2a2a; padding:0.2rem 0.5rem; display:inline-block; margin-bottom:0.75rem; }
+        .exp-desc { font-size:0.88rem; color:var(--txt2); line-height:1.85; }
+        .exp-tags { display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:1rem; }
+        .exp-tag { font-family:var(--mono); font-size:0.68rem; padding:0.2rem 0.6rem; background:var(--ob2); border:1px solid rgba(255,101,0,0.12); border-radius:4px; color:var(--txt3); }
+
+        /* ---- PROJECTS (featured big + small) ---- */
+        .projects-layout { display:flex; flex-direction:column; gap:1rem; }
+        .p-featured {
+            background:var(--card);
+            border:1px solid var(--b);
+            border-radius:var(--rad);
+            padding:2.5rem;
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:2rem;
+            align-items:center;
+            transition:var(--ease);
+            position:relative;
+            overflow:hidden;
+        }
+        .p-featured::before {
+            content:'';
+            position:absolute;
+            left:0; top:0; bottom:0;
+            width:3px;
+            background:linear-gradient(to bottom, var(--o), transparent);
+        }
+        .p-featured:hover { border-color:var(--o); box-shadow:0 8px 40px rgba(0,0,0,0.5); }
+        .p-feat-label { font-family:var(--mono); font-size:0.72rem; color:var(--o); letter-spacing:2px; margin-bottom:0.75rem; }
+        .p-feat-title { font-size:1.8rem; font-weight:800; color:var(--txt); letter-spacing:-0.5px; margin-bottom:1rem; line-height:1.2; }
+        .p-feat-desc { color:var(--txt2); font-size:0.9rem; line-height:1.9; margin-bottom:1.5rem; }
+        .p-feat-tags { display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:1.5rem; }
+        .p-feat-tag { font-family:var(--mono); font-size:0.72rem; padding:0.3rem 0.75rem; background:var(--ob); border:1px solid rgba(255,101,0,0.2); border-radius:999px; color:var(--o); }
+        .p-feat-links { display:flex; gap:0.75rem; }
+        .p-feat-preview {
+            aspect-ratio:16/10;
+            background:linear-gradient(135deg,#160a00,#0a0a0a);
+            border:1px solid rgba(255,101,0,0.1);
+            border-radius:var(--rad-s);
+            display:flex; align-items:center; justify-content:center;
+            font-family:var(--mono); font-size:0.75rem; color:var(--txt3);
+            flex-direction:column; gap:0.5rem;
+        }
+        .preview-icon { font-size:2.5rem; opacity:0.5; }
+        .p-small-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; }
+        .p-small {
+            background:var(--card);
+            border:1px solid var(--b);
+            border-radius:var(--rad);
+            padding:1.75rem;
+            transition:var(--ease);
+            display:flex; flex-direction:column;
+        }
+        .p-small:hover { border-color:var(--o); transform:translateY(-3px); }
+        .p-num { font-family:var(--mono); font-size:0.68rem; color:var(--txt3); letter-spacing:2px; margin-bottom:0.75rem; }
+        .p-title { font-size:1.05rem; font-weight:700; color:var(--txt); margin-bottom:0.6rem; }
+        .p-desc { font-size:0.85rem; color:var(--txt2); line-height:1.85; flex:1; margin-bottom:1.2rem; }
+        .p-tags { display:flex; flex-wrap:wrap; gap:0.35rem; margin-bottom:1.2rem; }
+        .p-tag { font-family:var(--mono); font-size:0.68rem; padding:0.18rem 0.55rem; background:var(--ob2); border:1px solid rgba(255,101,0,0.1); border-radius:4px; color:var(--txt3); }
+        .p-links { display:flex; gap:0.75rem; }
+        .p-link { font-size:0.78rem; color:var(--txt2); text-decoration:none; font-weight:500; transition:var(--ease); }
+        .p-link:hover { color:var(--o); }
+
+        /* ---- CERTS ---- */
+        .certs-bento { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1rem; }
+        .cert {
+            background:var(--card);
+            border:1px solid var(--b);
+            border-radius:var(--rad-s);
+            padding:1.25rem;
+            display:flex; align-items:center; gap:1rem;
+            transition:var(--ease);
+        }
+        .cert:hover { border-color:var(--o); background:var(--card2); }
+        .c-ico { font-size:1.4rem; width:44px; min-width:44px; height:44px; display:flex; align-items:center; justify-content:center; background:var(--ob2); border-radius:var(--rad-s); border:1px solid rgba(255,101,0,0.12); }
+        .c-name { font-size:0.83rem; font-weight:600; color:var(--txt); margin-bottom:0.15rem; }
+        .c-issuer { font-family:var(--mono); font-size:0.7rem; color:var(--txt3); }
+        .c-status { margin-left:auto; font-family:var(--mono); font-size:0.62rem; padding:0.2rem 0.6rem; border:1px solid var(--b); border-radius:999px; color:var(--txt3); white-space:nowrap; }
+
+        /* ---- ABOUT ---- */
+        .about-grid { display:grid; grid-template-columns:1.2fr 1fr; gap:1rem; }
+        .about-main {
+            background:var(--card);
+            border:1px solid var(--b);
+            border-radius:var(--rad);
+            padding:2.5rem;
+            transition:var(--ease);
+        }
+        .about-main h3 { font-size:1.6rem; font-weight:800; letter-spacing:-0.5px; margin-bottom:0.9rem; }
+        .about-main h3 span { color:var(--o); }
+        .about-main p { color:var(--txt2); line-height:1.95; margin-bottom:1rem; font-size:0.93rem; }
+        .edit-hint { font-family:var(--mono); font-size:0.7rem; color:var(--txt3); border-left:2px solid var(--b); padding-left:0.65rem; margin-bottom:1rem; opacity:0.7; }
+        .about-side { display:grid; grid-template-rows:1fr 1fr 1fr; gap:1rem; }
+        .about-mini {
+            background:var(--card);
+            border:1px solid var(--b);
+            border-radius:var(--rad-s);
+            padding:1.25rem;
+            display:flex; align-items:center; gap:1rem;
+            transition:var(--ease);
+        }
+        .about-mini:hover { border-color:var(--o); }
+        .mini-num { font-size:1.8rem; font-weight:900; color:var(--o); letter-spacing:-1px; min-width:60px; }
+        .mini-lbl { font-size:0.78rem; color:var(--txt2); font-weight:500; }
+        .mini-sub { font-size:0.72rem; color:var(--txt3); margin-top:0.15rem; font-family:var(--mono); }
+
+        /* ---- CONTACT ---- */
+        .contact-grid { display:grid; grid-template-columns:1fr 1.5fr; gap:1rem; }
+        .contact-info {
+            background:var(--card);
+            border:1px solid var(--b);
+            border-radius:var(--rad);
+            padding:2rem;
+        }
+        .contact-info h3 { font-size:1.4rem; font-weight:800; margin-bottom:0.75rem; letter-spacing:-0.5px; }
+        .contact-info h3 span { color:var(--o); }
+        .contact-info p { color:var(--txt2); font-size:0.88rem; line-height:1.9; margin-bottom:1.5rem; }
+        .clinks { display:flex; flex-direction:column; gap:0.65rem; }
+        .c-link {
+            display:flex; align-items:center; gap:0.9rem;
+            padding:0.7rem 0.9rem;
+            background:var(--card2); border:1px solid var(--b);
+            border-radius:var(--rad-s);
+            text-decoration:none; transition:var(--ease);
+        }
+        .c-link:hover { border-color:var(--o); background:var(--ob2); }
+        .c-ico2 { font-size:1rem; width:28px; text-align:center; }
+        .c-lbl { font-family:var(--mono); font-size:0.68rem; color:var(--txt3); display:block; }
+        .c-val { font-size:0.85rem; color:var(--txt2); transition:var(--ease); }
+        .c-link:hover .c-val { color:var(--o); }
+        .cform {
+            background:var(--card);
+            border:1px solid var(--b);
+            border-radius:var(--rad);
+            padding:2rem;
+        }
+        .f-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+        .f-group { margin-bottom:1.1rem; }
+        .f-label { font-size:0.72rem; color:var(--txt3); letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:0.4rem; font-family:var(--mono); }
+        .f-input, .f-area {
+            width:100%; background:var(--card2);
+            border:1px solid var(--b); color:var(--txt);
+            padding:0.72rem 0.95rem; font-family:var(--sans);
+            font-size:0.88rem; outline:none; border-radius:var(--rad-s);
+            transition:var(--ease);
+        }
+        .f-input:focus, .f-area:focus { border-color:var(--o); background:var(--ob2); }
+        .f-area { resize:vertical; min-height:100px; }
+        .f-btn {
+            width:100%; padding:0.9rem; background:var(--o);
+            border:none; color:#000; font-family:var(--sans);
+            font-size:0.88rem; font-weight:700; cursor:pointer;
+            border-radius:999px; transition:var(--ease);
+        }
+        .f-btn:hover { background:var(--o2); box-shadow:var(--glow2); transform:translateY(-1px); }
+
+        /* ---- FOOTER ---- */
+        footer { border-top:1px solid var(--b); padding:2rem; display:flex; justify-content:space-between; align-items:center; }
+        footer p { font-size:0.8rem; color:var(--txt3); }
+        footer span { color:var(--o); }
+
+        @keyframes blink { 50%{border-color:transparent} }
+
+        @media (max-width:1024px) {
+            .b-main { grid-column:1/9; }
+            .b-photo { grid-column:9/13; }
+        }
+        @media (max-width:768px) {
+            .bento-hero { grid-template-columns:1fr 1fr; }
+            .b-main { grid-column:1/3; grid-row:1; padding:2rem; }
+            .b-photo { grid-column:1/3; grid-row:2; }
+            .b-stat { grid-column:span 1; grid-row:3; }
+            .b-social { grid-column:span 2; grid-row:4; }
+            .b-ticker { grid-column:1/3; }
+            .nav-links { display:none; position:fixed; inset:0; background:rgba(10,10,10,0.98); flex-direction:column; align-items:center; justify-content:center; gap:2rem; list-style:none; }
+            .nav-links.open { display:flex; }
+            .nav-links a { font-size:1.1rem; }
+            .hamburger { display:flex; }
+            .about-grid { grid-template-columns:1fr; }
+            .contact-grid { grid-template-columns:1fr; }
+            .p-featured { grid-template-columns:1fr; }
+            .p-feat-preview { display:none; }
+            .f-row { grid-template-columns:1fr; }
+            footer { flex-direction:column; gap:0.5rem; text-align:center; }
+        }
+        @media (max-width:480px) {
+            .b-stat { grid-column:span 1; }
+        }
+    </style>
+</head>
+<body>
+
+<nav id="nav">
+    <a href="#home" class="logo">Naveen<span>.</span></a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#certifications">Certs</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO BENTO GRID -->
+<section id="home">
+    <div class="bento-hero">
+
+        <!-- Main: Name + CTA -->
+        <div class="bc b-main">
+            <div>
+                <div class="b-name-label">// DevOps Engineer</div>
+                <div class="b-name">Naveen<br><em>Kumar</em></div>
+                <div class="b-title-wrap">
+                    <div class="b-title"><span id="typer" class="b-cursor"></span></div>
+                </div>
+            </div>
+            <div class="b-btns">
+                <a href="#projects" class="btn btn-o">View Work</a>
+                <a href="#contact" class="btn btn-ghost">Contact Me</a>
+            </div>
+        </div>
+
+        <!-- Photo -->
+        <div class="b-photo">
+            <div class="photo-icon">👨‍💻</div>
+            <span class="photo-hint">[ Drop your photo here ]</span>
+        </div>
+
+        <!-- Stats -->
+        <div class="bc b-stat">
+            <div class="stat-big" id="stat-exp">—</div>
+            <div class="stat-sub">Years Exp.</div>
+        </div>
+        <div class="bc b-stat">
+            <div class="stat-big" id="stat-proj">—</div>
+            <div class="stat-sub">Projects</div>
+        </div>
+        <div class="bc b-stat">
+            <div class="stat-big" id="stat-cert">—</div>
+            <div class="stat-sub">Certifications</div>
+        </div>
+
+        <!-- Social -->
+        <div class="bc b-social">
+            <a href="#" class="soc-btn" title="LinkedIn">🔗</a>
+            <a href="#" class="soc-btn" title="GitHub">⌥</a>
+            <a href="#" class="soc-btn" title="Email">✉️</a>
+        </div>
+
+        <!-- Skills Ticker -->
+        <div class="bc b-ticker">
+            <div style="width:100%">
+                <div class="ticker-row" id="ticker1"></div>
+                <div class="ticker-row" id="ticker2" style="margin-top:0.5rem"></div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ABOUT -->
+<div class="sw" id="about">
+    <div class="sec-head reveal">
+        <div class="sec-head-left">
+            <div class="sec-label">About</div>
+            <div class="sec-title">Who I <span>Am</span></div>
+        </div>
+    </div>
+    <div class="about-grid">
+        <div class="about-main reveal">
+            <h3>DevOps Engineer & <span>Cloud Architect</span></h3>
+            <div class="edit-hint">// Update this section with your personal story</div>
+            <p>Passionate DevOps Engineer focused on building resilient, scalable infrastructure and automating everything that can be automated. I bridge the gap between dev and ops — enabling teams to ship with speed and confidence.</p>
+            <p>From designing CI/CD pipelines to managing Kubernetes clusters at scale, I apply SRE principles to keep systems reliable, observable, and always improving.</p>
+        </div>
+        <div class="about-side reveal">
+            <div class="about-mini"><div class="mini-num" id="mini-exp">—</div><div><div class="mini-lbl">Years of Experience</div><div class="mini-sub">Update in CONFIG</div></div></div>
+            <div class="about-mini"><div class="mini-num" id="mini-proj">—</div><div><div class="mini-lbl">Projects Delivered</div><div class="mini-sub">Update in CONFIG</div></div></div>
+            <div class="about-mini"><div class="mini-num" id="mini-cert">—</div><div><div class="mini-lbl">Certifications</div><div class="mini-sub">Update in CONFIG</div></div></div>
+        </div>
+    </div>
+</div>
+
+<!-- SKILLS -->
+<div class="sw" id="skills">
+    <div class="sec-head reveal">
+        <div class="sec-head-left">
+            <div class="sec-label">Tech Stack</div>
+            <div class="sec-title">Skills & <span>Tools</span></div>
+        </div>
+    </div>
+    <div id="skillsContainer"></div>
+</div>
+
+<!-- EXPERIENCE -->
+<div class="sw" id="experience">
+    <div class="sec-head reveal">
+        <div class="sec-head-left">
+            <div class="sec-label">Career</div>
+            <div class="sec-title">Work <span>Experience</span></div>
+        </div>
+    </div>
+    <div class="exp-grid" id="expGrid"></div>
+</div>
+
+<!-- PROJECTS -->
+<div class="sw" id="projects">
+    <div class="sec-head reveal">
+        <div class="sec-head-left">
+            <div class="sec-label">Work</div>
+            <div class="sec-title">Featured <span>Projects</span></div>
+        </div>
+    </div>
+    <div class="projects-layout" id="projectsLayout"></div>
+</div>
+
+<!-- CERTS -->
+<div class="sw" id="certifications">
+    <div class="sec-head reveal">
+        <div class="sec-head-left">
+            <div class="sec-label">Credentials</div>
+            <div class="sec-title">Certifi<span>cations</span></div>
+        </div>
+    </div>
+    <div class="certs-bento" id="certsGrid"></div>
+</div>
+
+<!-- CONTACT -->
+<div class="sw" id="contact">
+    <div class="sec-head reveal">
+        <div class="sec-head-left">
+            <div class="sec-label">Contact</div>
+            <div class="sec-title">Let's <span>Talk</span></div>
+        </div>
+    </div>
+    <div class="contact-grid">
+        <div class="contact-info reveal">
+            <h3>Build Something <span>Great</span></h3>
+            <p>Whether it's cloud architecture, automation strategies, or exploring new opportunities — always open to connecting.</p>
+            <div class="clinks" id="contactLinks"></div>
+        </div>
+        <div class="cform reveal">
+            <div class="f-row">
+                <div class="f-group"><label class="f-label">Name</label><input class="f-input" type="text" placeholder="John Doe"></div>
+                <div class="f-group"><label class="f-label">Email</label><input class="f-input" type="email" placeholder="john@example.com"></div>
+            </div>
+            <div class="f-group"><label class="f-label">Subject</label><input class="f-input" type="text" placeholder="Let's connect..."></div>
+            <div class="f-group"><label class="f-label">Message</label><textarea class="f-area" placeholder="Your message..."></textarea></div>
+            <button class="f-btn">Send Message →</button>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>© 2024 <span>Naveen Kumar</span></p>
+    <p>Built with <span>precision</span> · DevOps Engineer</p>
+</footer>
+
+<script>
+/* ══════════════════════════════════════
+   ★  PORTFOLIO CONFIG — Edit this only
+   ══════════════════════════════════════ */
+const CONFIG = {
+    name:   "Naveen Kumar",
+    title:  "DevOps Engineer",
+    titles: ["DevOps Engineer","Site Reliability Engineer","Platform Engineer","Cloud Architect","Infrastructure Automator"],
+    stats:  { experience:null, projects:null, certifications:null },
+    contact: {
+        email:    "naveen@example.com",
+        linkedin: "https://linkedin.com/in/naveenkumar",
+        github:   "https://github.com/naveenkumar",
+        location: "Your City, Country"
+    },
+    skills: [
+        { name:"Cloud Platforms",           icon:"☁️",  tags:["AWS","Azure","GCP","Oracle Cloud"] },
+        { name:"Containers & Orchestration", icon:"🐳", tags:["Docker","Kubernetes","Helm","OpenShift","ECS","EKS","AKS"] },
+        { name:"Infrastructure as Code",    icon:"🏗️",  tags:["Terraform","Ansible","Pulumi","CloudFormation","CDK"] },
+        { name:"CI/CD Pipelines",           icon:"🔄",  tags:["GitHub Actions","GitLab CI","Jenkins","ArgoCD","CircleCI","Tekton"] },
+        { name:"Monitoring & Observability", icon:"📊", tags:["Prometheus","Grafana","ELK Stack","Datadog","New Relic","PagerDuty","Jaeger"] },
+        { name:"Scripting & Languages",     icon:"💻",  tags:["Python","Bash","PowerShell","Go","YAML","HCL"] },
+        { name:"Security & Compliance",     icon:"🔐",  tags:["HashiCorp Vault","Trivy","SonarQube","IAM","RBAC","OPA","Falco"] },
+        { name:"Networking",                icon:"🌐",  tags:["VPC","Load Balancers","Nginx","CDN","DNS","Istio"] },
+        { name:"Databases & Storage",       icon:"🗄️",  tags:["PostgreSQL","MySQL","Redis","MongoDB","S3","DynamoDB"] },
+        { name:"Version Control",           icon:"🔀",  tags:["Git","GitHub","GitLab","Bitbucket","Jira","Confluence"] },
+        { name:"Service Mesh & API",        icon:"🕸️",  tags:["Istio","Consul","Kong","API Gateway","gRPC","REST"] },
+        { name:"OS & Systems",              icon:"🐧",  tags:["Linux","Ubuntu","CentOS","RHEL","Debian","Alpine Linux"] }
+    ],
+    experience: [
+        { date:"Month Year – Present", role:"DevOps Engineer", company:"Company Name", description:"Add your responsibilities and achievements here.", tags:["AWS","Kubernetes","Terraform","CI/CD"] },
+        { date:"Month Year – Month Year", role:"Previous Role", company:"Previous Company", description:"Describe your previous role and key contributions.", tags:["Docker","Linux","Python","Jenkins"] }
+    ],
+    projects: [
+        { num:"01", title:"Featured Project Title", description:"Describe your best project here — the problem it solved, the architecture decisions, and the measurable impact. This card is featured larger than the others.", tags:["Kubernetes","Terraform","AWS","Helm"], github:"#", demo:null },
+        { num:"02", title:"Project Title", description:"CI/CD pipeline, infrastructure automation, or monitoring setup you built.", tags:["Python","GitHub Actions","Docker","Prometheus"], github:"#", demo:null },
+        { num:"03", title:"Project Title", description:"Infrastructure project, security automation, or any technical work you're proud of.", tags:["Ansible","Grafana","Redis","Nginx"], github:"#", demo:null }
+    ],
+    certifications: [
+        { icon:"☁️",  name:"AWS Solutions Architect Associate",  issuer:"Amazon Web Services", status:"Add date" },
+        { icon:"⎈",   name:"Certified Kubernetes Administrator", issuer:"CNCF",               status:"Add date" },
+        { icon:"🔷",  name:"Azure DevOps Engineer Expert",       issuer:"Microsoft",           status:"Add date" },
+        { icon:"☁️",  name:"AWS DevOps Engineer Professional",   issuer:"Amazon Web Services", status:"Add date" },
+        { icon:"🌍",  name:"GCP Professional DevOps Engineer",   issuer:"Google Cloud",        status:"Add date" },
+        { icon:"🔐",  name:"HashiCorp Terraform Associate",      issuer:"HashiCorp",           status:"Add date" }
+    ]
+};
+
+/* ══ RENDERS ══ */
+function renderTickers() {
+    const all = CONFIG.skills.flatMap(c => c.tags);
+    const half = Math.floor(all.length / 2);
+    const row1 = all.slice(0, half);
+    const row2 = all.slice(half);
+    const makeTrack = (tags, rev) => {
+        const doubled = [...tags, ...tags];
+        return `<div class="ticker-track${rev?' rev':''}">${doubled.map(t=>`<span class="ticker-tag">${t}</span>`).join('')}</div>`;
+    };
+    document.getElementById('ticker1').innerHTML = makeTrack(row1, false);
+    document.getElementById('ticker2').innerHTML = makeTrack(row2, true);
+}
+
+function renderSkills() {
+    const rows = [];
+    for(let i=0; i<CONFIG.skills.length; i+=4) rows.push(CONFIG.skills.slice(i,i+4));
+    const wrap = document.getElementById('skillsContainer');
+    rows.forEach((row, ri) => {
+        const g = document.createElement('div');
+        g.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0.75rem;margin-bottom:0.75rem;';
+        row.forEach((cat, ci) => {
+            const el = document.createElement('div');
+            el.className = 'reveal';
+            el.style.transitionDelay = `${(ri*4+ci)*0.04}s`;
+            el.style.cssText += 'background:var(--card);border:1px solid var(--b);border-radius:var(--rad-s);padding:1.25rem;transition:var(--ease);';
+            el.onmouseenter = function(){this.style.borderColor='var(--o)'};
+            el.onmouseleave = function(){this.style.borderColor='var(--b)'};
+            el.innerHTML = `<div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.9rem"><span style="font-size:1.1rem">${cat.icon}</span><span style="font-family:var(--mono);font-size:0.75rem;color:var(--o);letter-spacing:1px;text-transform:uppercase">${cat.name}</span></div><div style="display:flex;flex-wrap:wrap;gap:0.35rem">${cat.tags.map(t=>`<span style="font-family:var(--mono);font-size:0.72rem;padding:0.22rem 0.6rem;background:var(--ob2);border:1px solid rgba(255,101,0,0.1);border-radius:4px;color:var(--txt2)">${t}</span>`).join('')}</div>`;
+            g.appendChild(el);
+        });
+        wrap.appendChild(g);
+    });
+}
+
+function renderExperience() {
+    const g = document.getElementById('expGrid');
+    CONFIG.experience.forEach((e,i) => {
+        const el = document.createElement('div');
+        el.className = 'exp-card reveal';
+        el.style.transitionDelay = `${i*0.1}s`;
+        el.innerHTML = `<div class="exp-top"><div class="exp-date">${e.date}</div><div class="exp-role">${e.role}</div><div class="exp-company">@ ${e.company}</div></div><div class="exp-bottom"><div class="update-hint">✏ Update with your real experience</div><div class="exp-desc">${e.description}</div><div class="exp-tags">${e.tags.map(t=>`<span class="exp-tag">${t}</span>`).join('')}</div></div>`;
+        g.appendChild(el);
+    });
+}
+
+function renderProjects() {
+    const layout = document.getElementById('projectsLayout');
+    const [first, ...rest] = CONFIG.projects;
+
+    const featured = document.createElement('div');
+    featured.className = 'p-featured reveal';
+    featured.innerHTML = `<div><div class="p-feat-label">★ FEATURED PROJECT — 01</div><div class="p-feat-title">${first.title}</div><div class="p-feat-desc">${first.description}</div><div class="p-feat-tags">${first.tags.map(t=>`<span class="p-feat-tag">${t}</span>`).join('')}</div><div class="p-feat-links"><a href="${first.github}" class="btn btn-o" target="_blank" style="font-size:0.78rem;padding:0.55rem 1.2rem">GitHub ↗</a>${first.demo?`<a href="${first.demo}" class="btn btn-ghost" target="_blank" style="font-size:0.78rem;padding:0.55rem 1.2rem">Live Demo ↗</a>`:''}</div></div><div class="p-feat-preview"><div class="preview-icon">🚀</div><span>[ Project Preview ]</span></div>`;
+    layout.appendChild(featured);
+
+    const sg = document.createElement('div');
+    sg.className = 'p-small-grid';
+    rest.forEach((p,i) => {
+        const el = document.createElement('div');
+        el.className = 'p-small reveal';
+        el.style.transitionDelay = `${i*0.1}s`;
+        el.innerHTML = `<div class="p-num">${p.num}</div><div class="p-title">${p.title}</div><div class="p-desc">${p.description}</div><div class="p-tags">${p.tags.map(t=>`<span class="p-tag">${t}</span>`).join('')}</div><div class="p-links"><a href="${p.github}" class="p-link" target="_blank">GitHub ↗</a>${p.demo?`<a href="${p.demo}" class="p-link" target="_blank">Demo ↗</a>`:''}</div>`;
+        sg.appendChild(el);
+    });
+    layout.appendChild(sg);
+}
+
+function renderCerts() {
+    const g = document.getElementById('certsGrid');
+    CONFIG.certifications.forEach((c,i) => {
+        const el = document.createElement('div');
+        el.className = 'cert reveal';
+        el.style.transitionDelay = `${i*0.07}s`;
+        el.innerHTML = `<div class="c-ico">${c.icon}</div><div><div class="c-name">${c.name}</div><div class="c-issuer">${c.issuer}</div></div><div class="c-status">${c.status}</div>`;
+        g.appendChild(el);
+    });
+}
+
+function renderContact() {
+    const w = document.getElementById('contactLinks');
+    [
+        { ico:'✉️', lbl:'Email',    val:CONFIG.contact.email,              href:`mailto:${CONFIG.contact.email}` },
+        { ico:'🔗', lbl:'LinkedIn', val:'linkedin.com/in/naveenkumar',    href:CONFIG.contact.linkedin },
+        { ico:'⌥',  lbl:'GitHub',   val:'github.com/naveenkumar',         href:CONFIG.contact.github },
+        { ico:'📍', lbl:'Location', val:CONFIG.contact.location,           href:'#' }
+    ].forEach(item => {
+        const a = document.createElement('a');
+        a.className = 'c-link';
+        a.href = item.href;
+        if(item.href.startsWith('http')||item.href.startsWith('mailto')) a.target='_blank';
+        a.innerHTML = `<div class="c-ico2">${item.ico}</div><div><span class="c-lbl">${item.lbl}</span><span class="c-val">${item.val}</span></div>`;
+        w.appendChild(a);
+    });
+}
+
+function renderStats() {
+    const s = CONFIG.stats;
+    const v = (n) => n ? n+'+' : '—';
+    ['stat-exp','mini-exp'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent = v(s.experience); });
+    ['stat-proj','mini-proj'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent = v(s.projects); });
+    ['stat-cert','mini-cert'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent = s.certifications||'—'; });
+}
+
+/* ══ TYPEWRITER ══ */
+function initTypewriter() {
+    const el = document.getElementById('typer');
+    const t = CONFIG.titles;
+    let i=0, c=0, del=false;
+    const tick = () => {
+        const w = t[i];
+        if(!del){el.textContent=w.slice(0,c+1);c++;if(c===w.length){del=true;return setTimeout(tick,2200);}}
+        else{el.textContent=w.slice(0,c-1);c--;if(c===0){del=false;i=(i+1)%t.length;return setTimeout(tick,350);}}
+        setTimeout(tick, del?60:90);
+    };
+    tick();
+}
+
+/* ══ SCROLL REVEAL ══ */
+function initReveal() {
+    const obs = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('show'); }), { threshold:0.08, rootMargin:'0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+}
+
+/* ══ NAV ══ */
+function initNav() { window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('scrolled', scrollY > 50)); }
+function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open')));
+
+/* ══ BOOT ══ */
+document.addEventListener('DOMContentLoaded', () => {
+    renderTickers(); renderSkills(); renderExperience(); renderProjects();
+    renderCerts(); renderContact(); renderStats();
+    initTypewriter(); initNav();
+    setTimeout(initReveal, 150);
+});
+</script>
+</body>
+</html>
