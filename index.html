@@ -309,7 +309,28 @@
             position: relative;
             max-width: 320px;
             margin: 0 auto;
-            aspect-ratio: 1;
+            aspect-ratio: 4 / 5;
+        }
+        .about-photo {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 24%;
+            filter: grayscale(1) contrast(1.08) brightness(0.82);
+            border: 1px solid var(--cyan-border);
+            clip-path: polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px));
+        }
+        .about-photo-tag {
+            position: absolute;
+            left: 14px;
+            bottom: 14px;
+            padding: 0.55rem 0.7rem;
+            background: rgba(5,8,16,0.88);
+            border: 1px solid var(--cyan-border);
+            color: var(--cyan);
+            font: 0.62rem var(--mono);
+            letter-spacing: 1px;
         }
         .img-placeholder {
             width: 100%; height: 100%;
@@ -428,13 +449,17 @@
         .tag {
             font-family: var(--mono);
             font-size: 0.72rem;
-            padding: 0.3rem 0.7rem;
+            padding: 0.3rem 0.55rem;
             background: rgba(0,229,255,0.04);
             border: 1px solid rgba(0,229,255,0.14);
             color: var(--txt2);
             transition: var(--ease);
             cursor: default;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
         }
+        .tag img { width: 16px; height: 16px; object-fit: contain; flex: 0 0 16px; }
         .tag:hover {
             background: rgba(0,229,255,0.11);
             border-color: var(--cyan);
@@ -491,6 +516,9 @@
         .t-role { font-size: 1.08rem; font-weight: 600; color: var(--txt); margin-bottom: 0.2rem; }
         .t-company { font-family: var(--mono); font-size: 0.82rem; color: var(--txt2); margin-bottom: 0.9rem; }
         .t-desc { color: var(--txt2); font-size: 0.88rem; line-height: 1.85; }
+        .t-highlights { display: grid; gap: 0.72rem; margin: 0; padding: 0; list-style: none; }
+        .t-highlights li { display: grid; grid-template-columns: 10px minmax(0,1fr); gap: 0.7rem; color: var(--txt2); font-size: 0.87rem; line-height: 1.7; }
+        .t-highlights li::before { content: ''; width: 5px; height: 5px; margin-top: 0.58rem; background: var(--cyan); box-shadow: var(--glow-s); transform: rotate(45deg); }
         .t-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1rem; }
         .t-tag {
             font-family: var(--mono);
@@ -584,14 +612,13 @@
             transition: var(--ease);
         }
         .cert:hover { border-color: var(--cyan); box-shadow: var(--glow-s); }
-        .cert-ico {
-            width: 42px; min-width: 42px; height: 42px;
-            background: rgba(0,229,255,0.07);
-            border: 1px solid var(--cyan-border);
+        .cert-art {
+            width: 112px; min-width: 112px; height: 112px;
+            background: var(--txt);
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.25rem;
+            padding: 4px;
         }
-        .cert-ico svg { width: 32px; height: 32px; display: block; }
+        .cert-art img { width: 100%; height: 100%; display: block; object-fit: contain; }
         .cert-name { font-size: 0.83rem; font-weight: 600; color: var(--txt); margin-bottom: 0.15rem; }
         .cert-issuer { font-family: var(--mono); font-size: 0.7rem; color: var(--txt3); }
         .cert-badge {
@@ -608,29 +635,53 @@
            CONTACT
         =========================== */
         #contact { background: linear-gradient(180deg,transparent,rgba(0,229,255,0.015),transparent); }
-        .contact-grid {
+        .contact-grid { width: min(100%, 1000px); margin: 0 auto; }
+        .contact-panel {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 4rem;
-        }
-        .contact-left h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.9rem; }
-        .contact-left p { color: var(--txt2); line-height: 1.9; margin-bottom: 2rem; }
-        .contact-links { display: flex; flex-direction: column; gap: 0.9rem; }
-        .c-link {
-            display: flex;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: clamp(2rem, 5vw, 4.5rem);
             align-items: center;
-            gap: 1rem;
-            padding: 0.75rem 1rem;
-            background: var(--card);
+            padding: clamp(1.5rem, 5vw, 3.5rem);
+            background: linear-gradient(135deg, rgba(0,229,255,0.07), transparent 48%), var(--card);
             border: 1px solid var(--cyan-border);
+            clip-path: polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,0 100%);
+        }
+        .contact-copy { max-width: 390px; }
+        .contact-kicker {
+            margin-bottom: 1rem;
+            color: var(--cyan);
+            font: 0.68rem var(--mono);
+            letter-spacing: 1.5px;
+        }
+        .contact-left h3 { font-size: clamp(1.65rem, 3vw, 2.4rem); line-height: 1.2; font-weight: 600; margin-bottom: 1rem; }
+        .contact-left p { color: var(--txt2); line-height: 1.8; margin-bottom: 1.7rem; }
+        .contact-left .btn { display: inline-flex; }
+        .contact-links { display: grid; gap: 0.7rem; }
+        .c-link {
+            min-width: 0;
+            display: grid;
+            grid-template-columns: 42px minmax(0,1fr) auto;
+            align-items: center;
+            gap: 0.2rem 0.85rem;
+            min-height: 76px;
+            padding: 0.8rem 0.9rem;
+            color: var(--txt2);
+            background: rgba(5,8,16,0.42);
+            border: 1px solid rgba(0,229,255,0.12);
             text-decoration: none;
-            clip-path: polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%);
             transition: var(--ease);
         }
-        .c-link:hover { border-color: var(--cyan); box-shadow: var(--glow-s); }
-        .c-ico { font-size: 1.1rem; width: 32px; text-align: center; }
-        .c-lbl { font-family: var(--mono); font-size: 0.7rem; color: var(--txt3); display: block; }
-        .c-val { font-size: 0.88rem; color: var(--txt2); transition: var(--ease); }
+        a.c-link:link, a.c-link:visited { color: var(--txt2); }
+        .c-link:hover { border-color: var(--cyan); background: rgba(0,229,255,0.055); transform: translateY(-2px); }
+        .c-link.is-static { cursor: default; }
+        .c-symbol { grid-column: 1; grid-row: 1 / span 2; display: grid; place-items: center; width: 42px; height: 42px; border: 1px solid var(--cyan-border); border-radius: 11px; background: linear-gradient(145deg,rgba(0,229,255,0.16),rgba(0,229,255,0.035)); color: var(--cyan); box-shadow: inset 0 1px 0 rgba(255,255,255,0.08),0 5px 16px rgba(0,229,255,0.07); transition: var(--ease); }
+        .c-symbol svg { display: block; width: 20px; height: 20px; }
+        .c-lbl { grid-column: 2; display: block; font-family: var(--mono); font-size: 0.61rem; color: var(--cyan); letter-spacing: 1.2px; }
+        .c-val { grid-column: 2; display: block; min-width: 0; overflow-wrap: anywhere; font-size: 0.86rem; color: var(--txt); transition: var(--ease); }
+        .c-arrow { grid-column: 3; grid-row: 1 / span 2; color: var(--cyan); font-size: 1rem; opacity: 0.7; }
         .c-link:hover .c-val { color: var(--cyan); }
 
         .contact-form {
@@ -728,7 +779,7 @@
             .nav-links a { font-size: 1.05rem; }
             .hamburger { display: flex; }
             .about-grid { grid-template-columns: 1fr; }
-            .contact-grid { grid-template-columns: 1fr; }
+            .contact-panel { grid-template-columns: 1fr; gap: 2rem; }
             .stats-row { grid-template-columns: repeat(3,1fr); }
             .hero-btns { flex-direction: column; align-items: center; }
         }
@@ -770,8 +821,7 @@
             <span id="typer" class="cursor"></span>
         </div>
         <p class="hero-sub">
-            I build secure AWS platforms and delivery pipelines. At DataGrokr Analytics, I automated account onboarding
-            across 10+ enterprise services, cutting provisioning from 2–3 days to under 2 hours.
+            AWS DevOps engineer building reliable cloud platforms through automation, security, and thoughtful delivery.
         </p>
         <div class="hero-btns">
             <a href="#projects" class="btn btn-outline">VIEW MY WORK</a>
@@ -795,10 +845,8 @@
     <div class="about-grid">
         <div class="reveal">
             <div class="img-frame">
-                <div class="img-placeholder">
-                    <div class="avatar-ring">👨‍💻</div>
-                    <span>AWS PLATFORM<br>ENGINEERING</span>
-                </div>
+                <img class="about-photo" src="assets/me.png" alt="Portrait of Naveen Kumar">
+                <span class="about-photo-tag">NAVEEN KUMAR - DEVOPS ENGINEER</span>
                 <div class="corner c-tl"></div>
                 <div class="corner c-tr"></div>
                 <div class="corner c-bl"></div>
@@ -881,11 +929,14 @@
         <div class="sec-line"></div>
     </div>
     <div class="contact-grid">
-        <div class="contact-left reveal">
-            <h3>Let's Build Something</h3>
-            <p>For DevOps, cloud platform, and infrastructure automation opportunities, reach me here or download my resume.</p>
-            <div class="contact-links" id="contactLinks"></div>
-            <a href="Naveen_Kumar_DevOps_Engineer_Resume.pdf" class="btn btn-fill" download>DOWNLOAD_RESUME</a>
+        <div class="contact-panel reveal">
+            <div class="contact-left contact-copy">
+                <p class="contact-kicker">OPEN TO GREAT WORK</p>
+                <h3>Let's build systems people can trust.</h3>
+                <p>Have a cloud or DevOps opportunity in mind? Let’s talk.</p>
+                <a href="Naveen_Kumar_DevOps_Engineer_Resume.pdf" class="btn btn-fill" download>DOWNLOAD_RESUME</a>
+            </div>
+            <div class="contact-links" id="contactLinks" aria-label="Contact details"></div>
         </div>
     </div>
 </div>
@@ -907,7 +958,7 @@ const CONFIG = {
     title: "DevOps Engineer",
     titles: ["DevOps Engineer", "AWS Platform Engineer", "CI/CD & Observability Engineer"],
     stats: { experience: 4, projects: 4, certifications: 2 },
-    contact: { email: "nnkumar2468@gmail.com", linkedin: "https://www.linkedin.com/in/naveen-kumar-07b1071bb", github: "", location: "Bengaluru, India" },
+    contact: { email: "nnkumar2468@gmail.com", linkedin: "https://www.linkedin.com/in/naveen-kumar-07b1071bb", location: "Bengaluru, India" },
     skills: [
         { name: "AWS Platform", icon: "☁️", tags: ["AWS Organizations", "IAM", "AWS Config", "Lambda", "CloudWatch", "Terraform", "CloudFormation", "EKS", "ECS Fargate", "S3", "DynamoDB", "SQS", "SES", "Step Functions"] },
         { name: "CI/CD & Containers", icon: "🔄", tags: ["Jenkins", "Groovy", "Docker", "Amazon ECR", "Kubernetes", "Helm", "Trivy", "SonarQube", "GitHub Actions"] },
@@ -921,7 +972,12 @@ const CONFIG = {
             date: "Jan 2023 – Present",
             role: "DevOps Engineer",
             company: "DataGrokr Analytics",
-            description: "Build AWS multi-account onboarding and lifecycle automation, scalable Jenkins CI/CD on ECS Fargate, EKS delivery pipelines, Terraform and CloudFormation infrastructure, 25+ AWS Config rules, and Python Lambda monitoring. Account onboarding reduced manual effort by 80%; Jenkins infrastructure cost fell by 35% and deployment time by 45%.",
+            highlights: [
+                "Automated AWS account provisioning and lifecycle workflows with Jenkins, Python, and Boto3, reducing onboarding from 2–3 days to under 2 hours and cutting manual effort by 80%.",
+                "Built Okta SAML federation with business-unit-aware role mapping and connected 10+ enterprise services across the account setup workflow.",
+                "Created 25+ AWS Config rules and centralized Lambda error monitoring with deduplication, severity escalation, and daily operational digests.",
+                "Delivered EKS and Jenkins CI/CD improvements: EKS releases dropped from 1–2 hours to 12–15 minutes with zero downtime; Jenkins infrastructure costs fell 35% and deployment time 45%."
+            ],
             tags: ["AWS", "Jenkins", "Python", "Okta", "ServiceNow", "AWS Config", "Boto3"]
         }
     ],
@@ -932,16 +988,26 @@ const CONFIG = {
         { num: "04", title: "Scalable Jenkins on ECS Fargate", description: "Designed Jenkins on ECS Fargate with ephemeral build agents and persistent EFS storage. Documented outcomes include 35% lower infrastructure cost, removal of the fixed build concurrency cap, and 45% faster average deployments.", tags: ["AWS ECS Fargate", "Jenkins", "EFS", "Docker", "JCasC", "Amazon ECR"], github: null, demo: null }
     ],
     certifications: [
-        { icon: '<svg viewBox="0 0 96 64" role="img" aria-label="AWS logo"><text x="5" y="39" fill="currentColor" font-family="Arial,sans-serif" font-size="32" font-weight="700">aws</text><path d="M10 49c22 10 48 10 70-1M70 43l10 5-7 7" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>', name: "AWS Certified Solutions Architect – Associate", issuer: "Amazon Web Services", status: "CERTIFIED" },
-        { icon: '<svg viewBox="0 0 64 64" role="img" aria-label="HashiCorp logo"><path d="M18 5h28l13 13v28L46 59H18L5 46V18z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/><path d="M21 20v24M43 20v24M21 32h22" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="square"/></svg>', name: "HashiCorp Certified: Terraform Associate (003)", issuer: "HashiCorp", status: "CERTIFIED" }
+        { badge: "assets/certification-badges/aws-solutions-architect-associate.png", credentialUrl: "https://www.credly.com/org/amazon-web-services/badge/aws-certified-solutions-architect-associate", name: "AWS Certified Solutions Architect – Associate", issuer: "Amazon Web Services", status: "CERTIFIED" },
+        { badge: "https://www.hashicorp.com/_next/image?q=75&url=https%3A%2F%2Fwww.datocms-assets.com%2F2885%2F1787160070-mini-terraform-associate.png&w=1200", credentialUrl: "https://developer.hashicorp.com/certifications/terraform-associate", name: "HashiCorp Certified: Terraform Associate (003)", issuer: "HashiCorp", status: "CERTIFIED" }
     ]
 };
+
+
 /* ==========================================================
    RENDER FUNCTIONS
    ========================================================== */
 
 function renderSkills() {
     const grid = document.getElementById('skillsGrid');
+    const logos = {
+        "AWS Organizations":"aws-light.svg", "IAM":"aws-light.svg", "AWS Config":"aws-light.svg", "Lambda":"aws-light.svg", "CloudWatch":"aws-light.svg", "CloudFormation":"aws-light.svg", "EKS":"aws-light.svg", "ECS Fargate":"aws-light.svg", "S3":"aws-light.svg", "DynamoDB":"aws-light.svg", "SQS":"aws-light.svg", "SES":"aws-light.svg", "Step Functions":"aws-light.svg", "Amazon ECR":"aws-light.svg",
+        "Terraform":"terraform.svg", "Jenkins":"jenkins.svg", "Groovy":"apachegroovy.svg", "Docker":"docker.svg", "Kubernetes":"kubernetes.svg", "Helm":"helm.svg", "Trivy":"trivy.svg", "SonarQube":"sonarqube.svg", "GitHub Actions":"githubactions.svg",
+        "Python":"python.svg", "Boto3":"python.svg", "Bash":"gnubash.svg", "PowerShell":"powershell.svg", "YAML":"yaml.svg", "JSON":"json.svg",
+        "Okta":"okta.svg", "SAML":"okta.svg", "SCIM":"okta.svg", "STS AssumeRole":"aws-light.svg", "AWS Config Rules":"aws-light.svg", "IAM Permissions Boundaries":"aws-light.svg", "ServiceNow":"servicenow.png",
+        "Prometheus":"prometheus.svg", "Grafana":"grafana.svg", "CloudWatch Logs":"aws-light.svg", "EventBridge":"aws-light.svg", "SNS":"aws-light.svg", "Alerting":"prometheus.svg", "HTML/JSON Reporting":"html5.svg",
+        "CrowdStrike CSPM":"crowdstrike-light.svg", "ServiceNow CMDB":"servicenow.png", "Exchange Online":"microsoft-exchange.svg", "Kubex/Densify":"kubernetes.svg", "Proofpoint":"proofpoint.png", "Splunk":"splunk.svg"
+    };
     CONFIG.skills.forEach((cat, i) => {
         const el = document.createElement('div');
         el.className = 'skill-cat reveal';
@@ -951,7 +1017,7 @@ function renderSkills() {
                 <div class="cat-icon">${cat.icon}</div>
                 <span class="cat-name">${cat.name}</span>
             </div>
-            <div class="tags">${cat.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+            <div class="tags">${cat.tags.map(t => `<span class="tag"><img src="assets/skill-logos/${logos[t] || 'aws-light.svg'}" alt="" loading="lazy"><span>${t}</span></span>`).join('')}</div>
         `;
         grid.appendChild(el);
     });
@@ -969,7 +1035,7 @@ function renderExperience() {
                 <div class="t-date">${exp.date}</div>
                 <div class="t-role">${exp.role}</div>
                 <div class="t-company">@ ${exp.company}</div>
-                <div class="t-desc">${exp.description}</div>
+                ${exp.highlights ? `<ul class="t-highlights">${exp.highlights.map(point => `<li>${point}</li>`).join('')}</ul>` : `<div class="t-desc">${exp.description}</div>`}
                 <div class="t-tags">${exp.tags.map(t => `<span class="t-tag">${t}</span>`).join('')}</div>
             </div>
         `;
@@ -1009,7 +1075,7 @@ function renderCerts() {
         el.className = 'cert reveal';
         el.style.transitionDelay = `${i * 0.07}s`;
         el.innerHTML = `
-            <div class="cert-ico">${c.icon}</div>
+            <a class="cert-art" href="${c.credentialUrl}" target="_blank" rel="noopener" aria-label="View ${c.name} credential"><img src="${c.badge}" alt="${c.name} official badge" loading="lazy"></a>
             <div>
                 <div class="cert-name">${c.name}</div>
                 <div class="cert-issuer">${c.issuer}</div>
@@ -1024,24 +1090,18 @@ function renderContact() {
     const wrap = document.getElementById('contactLinks');
     if (!wrap) return;
     const items = [
-        { ico: '✉️', lbl: 'EMAIL',    val: CONFIG.contact.email,    href: CONFIG.contact.email ? `mailto:${CONFIG.contact.email}` : '' },
-        { ico: '🔗', lbl: 'LINKEDIN', val: CONFIG.contact.linkedin.replace(/^https?:\/\//, ''), href: CONFIG.contact.linkedin },
-        { ico: '⌥',  lbl: 'GITHUB',   val: CONFIG.contact.github.replace(/^https?:\/\//, ''), href: CONFIG.contact.github },
-        { ico: '📍', lbl: 'LOCATION', val: CONFIG.contact.location,  href: '' }
+        { label: 'EMAIL', value: CONFIG.contact.email, href: `mailto:${CONFIG.contact.email}`, icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>' },
+        { label: 'LINKEDIN', value: CONFIG.name, href: CONFIG.contact.linkedin, icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14ZM8.2 10H5.7v8.2h2.5V10ZM7 6.1a1.45 1.45 0 1 0 0 2.9 1.45 1.45 0 0 0 0-2.9Zm11.3 7.4c0-2.5-1.3-3.7-3.1-3.7-1.4 0-2.1.8-2.5 1.3V10h-2.5v8.2h2.5v-4.1c0-1.1.2-2.2 1.6-2.2s1.4 1.3 1.4 2.3v4h2.5v-4.7Z"/></svg>' },
+        { label: 'LOCATION', value: CONFIG.contact.location, href: '', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>' }
     ];
-    items.filter(item => item.val).forEach(item => {
-        const a = document.createElement('a');
-        a.className = 'c-link';
-        a.href = item.href;
-        if (!item.href) a.removeAttribute('href');
-        if (item.href.startsWith('http')) { a.target = '_blank'; a.rel = 'noopener'; }
-        a.innerHTML = `
-            <div class="c-ico">${item.ico}</div>
-            <div>
-                <span class="c-lbl">${item.lbl}</span>
-                <span class="c-val">${item.val}</span>
-            </div>
-        `;
+    items.forEach(item => {
+        const a = document.createElement(item.href ? 'a' : 'div');
+        a.className = `c-link${item.href ? '' : ' is-static'}`;
+        if (item.href) {
+            a.href = item.href;
+            if (item.href.startsWith('http')) { a.target = '_blank'; a.rel = 'noopener'; }
+        }
+        a.innerHTML = `<span class="c-symbol" aria-hidden="true">${item.icon}</span><span class="c-lbl">${item.label}</span><span class="c-val">${item.value}</span>${item.href ? '<span class="c-arrow" aria-hidden="true">↗</span>' : ''}`;
         wrap.appendChild(a);
     });
 }
